@@ -1,0 +1,17 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: # 활성화 시킬 profile
+      - local
+    include: # application-[name] 파일 내용을 포함시키기 - 로 구분
+      - db
+      - oauth
+    group: # 그룹화 시켜 가져오기 위한 설정, profile 값 중 key와 일치할 경우 가져오기.
+      local:
+        - db-local
+      dev:
+        - db-dev
+      prod:
+        - db-prod
