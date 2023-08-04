@@ -42,4 +42,3 @@ application-*.yaml
 
 ### Env
 .env
-src/main/resources/postgres.env
