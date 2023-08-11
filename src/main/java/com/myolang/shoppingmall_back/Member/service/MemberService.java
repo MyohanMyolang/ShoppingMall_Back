@@ -6,5 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface MemberService {
 
-  public void save();
+  public boolean regist();
+
+  public boolean duplicateCheckUserId(String userId);
 }

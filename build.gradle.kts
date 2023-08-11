@@ -22,7 +22,12 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa"){
+        exclude("org.hibernate.orm:hibernate-core:6.2.6.Final")
+
+    }
+    implementation("org.hibernate.orm:hibernate-core:6.3.0.CR1")
+
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -40,6 +45,7 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 
 
     runtimeOnly("org.postgresql:postgresql")

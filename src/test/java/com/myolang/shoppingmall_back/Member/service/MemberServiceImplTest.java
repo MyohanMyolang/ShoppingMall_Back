@@ -8,9 +8,4 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 class MemberServiceImplTest {
   @Autowired
   MemberRepository memberRepository;
-  MemberService memberService = new MemberService() {
-    @Override
-    public void save() {
-    }
-  };
 }

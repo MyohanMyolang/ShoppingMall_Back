@@ -15,27 +15,48 @@ public class Member {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long Id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String userId;
   @Column(nullable = false)
   private String pw;
-  @Column(nullable = false)
-  private String phoneNumber;
-  @Column(nullable = false)
-  private String address;
+
   private String jwt;
+  private String nickName;
 
   @Column(nullable = false)
   @Enumerated
-  private Role role;
+  private MemberRole memberRole;
+
+//  @Column(nullable = false)
+  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+  @Setter
+  MemberInfo info;
 
   @Builder
-  public Member(String userId, String pw, String phoneNumber, String address, String jwt, Role role) {
+  public Member(String userId, String pw, String jwt, MemberRole memberRole, String nickname) {
     this.userId = userId;
     this.pw = pw;
-    this.phoneNumber = phoneNumber;
-    this.address = address;
     this.jwt = jwt;
-    this.role = role;
+    this.memberRole = memberRole;
+    this.nickName = nickname;
+  }
+
+  public Member changeInfo(MemberInfo info){ this.info = info; return this;}
+
+  public Member changePw(String pw) {this.pw = pw;return this;}
+
+  public Member changeNickname(String nickname){
+    this.nickName = nickname;
+    return this;
+  }
+
+  public Member changeRole(MemberRole memberRole){
+    this.memberRole = memberRole;
+    return this;
+  }
+
+  public Member changeJwt(String jwt){
+    this.jwt = jwt;
+    return this;
   }
 }
