@@ -12,7 +12,7 @@ public class MemberAddress {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member_info_id")
   @Setter
   MemberInfo memberInfo;

@@ -26,10 +26,10 @@ dependencies {
         exclude("org.hibernate.orm:hibernate-core:6.2.6.Final")
 
     }
-    implementation("org.hibernate.orm:hibernate-core:6.3.0.CR1")
+    implementation("org.hibernate.orm:hibernate-core:6.3.0.CR1") // 6.2.6 Version에서 단방향 Mapping이 안된다는 에러가 발생하여 추가.
 
-    implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-    implementation("org.springframework.boot:spring-boot-starter-security")
+    //implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+    //implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("me.paulschwarz:spring-dotenv:4.0.0")
@@ -42,7 +42,7 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.security:spring-security-test")
+    //testImplementation("org.springframework.security:spring-security-test")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")

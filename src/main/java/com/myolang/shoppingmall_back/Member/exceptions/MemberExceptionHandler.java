@@ -1,7 +1,9 @@
 package com.myolang.shoppingmall_back.Member.exceptions;
 
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -13,7 +15,7 @@ public class MemberExceptionHandler {
 
 
   /*
-  NOTE : 현재 Member Table 에는 Jwt와, User_Id만이 unique
+  NOTE : 현재 Member Table 에는 Jwt와, User_Id만이 unique Key를 가지고 있기에
   @ExceptionHandler(DataIntegrityViolationException.class)
   ResponseEntity integrityException(DataIntegrityViolationException e){
     String message = e.getMessage();
@@ -29,4 +31,17 @@ public class MemberExceptionHandler {
     return ResponseEntity.badRequest().build();
   }
    */
+
+  @ExceptionHandler(DataIntegrityViolationException.class)
+  ResponseEntity test(DataIntegrityViolationException e){
+    // Log
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("버그 리포트를 남겨주시기 바랍니다.");
+  }
+
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  ResponseEntity requiredRequestBodyError(HttpMessageNotReadableException e){
+
+    return ResponseEntity.badRequest().body("값이 형식에 맞게 전달되지 않았습니다.");
+  }
 }

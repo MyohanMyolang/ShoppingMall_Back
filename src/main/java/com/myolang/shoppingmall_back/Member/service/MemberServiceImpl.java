@@ -1,5 +1,6 @@
 package com.myolang.shoppingmall_back.Member.service;
 
+import com.myolang.shoppingmall_back.Member.entity.Member;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +10,7 @@ public class MemberServiceImpl implements MemberService{
 
 
   @Override
-  public boolean regist() {
+  public boolean regist(Member member) {
     return false;
   }
 

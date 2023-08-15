@@ -23,7 +23,10 @@ public class MemberDto {
 
     String detail;
   }
+  @Setter
+  @Getter
   public static class InfoDto{
     String phoneNumber;
+    String name;
   }
 }

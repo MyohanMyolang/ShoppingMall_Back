@@ -8,12 +8,13 @@ import java.util.Map;
 
 public class MemberErrorCode {
 
+  protected enum ErrorCode {
+
+  }
+
   private static Map<String, String> errCode;
   static {
     errCode = new HashMap<String,String>();
-    errCode.put("user_id","");
-  }
-  protected ResponseEntity getResponseEntity(HttpStatus status, String uniqueKey, String value){
-    return ResponseEntity.status(status).build();
+//    errCode.put(ErrorCode.,"");
   }
 }

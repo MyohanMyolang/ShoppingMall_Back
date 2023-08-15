@@ -41,7 +41,7 @@ class MemberRepositoryTest {
       .userId("test")
       .pw("test")
       .jwt("jwt")
-      .role(MemberRole.Admin)
+      .memberRole(MemberRole.Admin)
       .build();
     MemberInfo info1 = MemberInfo.builder()
       .phoneNumber("010-0000-0000")
@@ -53,6 +53,10 @@ class MemberRepositoryTest {
 
     member.setInfo(info1);
     info1.addAddress(addr);
+    MemberAddress addr1 = new MemberAddress();
+    addr1.setCity("city1");
+    addr1.setMemberInfo(info1);
+    info1.addAddress(addr1);
     memberRepository.save(member);
 
 
@@ -61,17 +65,13 @@ class MemberRepositoryTest {
       .userId("test1")
       .pw("test")
       .jwt("jwt1")
-      .role(MemberRole.Admin)
+      .memberRole(MemberRole.Admin)
       .build();
     MemberInfo info2 = MemberInfo.builder()
       .phoneNumber("010-0000-0000")
       .build();
     //em.persist(info2);
     member2.setInfo(info2);
-    MemberAddress addr1 = new MemberAddress();
-    addr1.setCity("city1");
-    addr1.setMemberInfo(info2);
-    info2.addAddress(addr1);
     memberRepository.save(member2);
   }
 
@@ -82,7 +82,7 @@ class MemberRepositoryTest {
     //given
 
       //when
-    List<Member> result = memberRepository.findByRole(MemberRole.Admin);
+    List<Member> result = memberRepository.findByMemberRole(MemberRole.Admin);
 
     //then
     assertThat(result.size()).isEqualTo(2);
@@ -98,7 +98,7 @@ class MemberRepositoryTest {
       .userId("test")
       .pw("test")
       .jwt("jwt")
-      .role(MemberRole.Admin)
+      .memberRole(MemberRole.Admin)
       .build();
       //when
 
@@ -126,11 +126,11 @@ class MemberRepositoryTest {
 
     assertThat(changedResult.getJwt()).isEqualTo("jwt2");
 
-    List<Member> byRole = memberRepository.findByRole(MemberRole.Admin);
+    List<Member> byRole = memberRepository.findByMemberRole(MemberRole.Admin);
     assertThat(byRole.size()).isEqualTo(2);
 
     result.changeRole(MemberRole.LoginUser);
-    List<Member> byRole1 = memberRepository.findByRole(MemberRole.Admin);
+    List<Member> byRole1 = memberRepository.findByMemberRole(MemberRole.Admin);
     assertThat(byRole1.size()).isEqualTo(1);
   }
 

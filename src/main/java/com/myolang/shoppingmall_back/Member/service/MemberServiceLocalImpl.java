@@ -1,5 +1,6 @@
 package com.myolang.shoppingmall_back.Member.service;
 
+import com.myolang.shoppingmall_back.Member.entity.Member;
 import com.myolang.shoppingmall_back.Member.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +15,11 @@ import org.springframework.util.Assert;
 public class MemberServiceLocalImpl implements MemberService {
 
   private final MemberRepository memberRepository;
-  private final EntityManager em;
 
 
   @Override
-  public boolean regist() {
+  public boolean regist(Member member) {
+
     return false;
   }
 

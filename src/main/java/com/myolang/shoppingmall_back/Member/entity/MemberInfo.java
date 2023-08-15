@@ -17,7 +17,14 @@ public class MemberInfo {
 
   @Column(nullable = false)
   @Setter
+  @Getter
   private String phoneNumber;
+
+  @Column(nullable = false)
+  @Setter
+  @Getter
+  private String name;
+
   @Setter
   @OneToMany(mappedBy = "memberInfo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<MemberAddress> address = new ArrayList<>();
