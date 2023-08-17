@@ -7,7 +7,6 @@ spring:
       - local
     include: # application-[name] 파일 내용을 포함시키기
       - db
-      - oauth
     group: # 그룹화 시켜 가져오기 위한 설정, profile 값 중 key와 일치할 경우 가져오기.
       local:
         - db-local

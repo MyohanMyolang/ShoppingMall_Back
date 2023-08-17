@@ -1,0 +1,70 @@
+# default
+
+
+--- # Local
+spring:
+  config:
+    activate:
+      on-profile: "db-local"
+
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: ${POSTGRES_URL}_local
+    username: ${POSTGRES_ID}
+    password: ${POSTGRES_PW}
+  sql:
+    init:
+      encoding: UTF-8
+logging:
+  level:
+    com.zaxxer.hikari: TRACE
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    p6spy: info
+
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
+--- # Dev
+spring:
+  config:
+    activate:
+      on-profile: "db-dev"
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_ID}
+    password: ${POSTGRES_PW}
+  sql:
+    init:
+      encoding: UTF-8
+
+--- # Prod
+
+spring:
+  config:
+    activate:
+      on-profile: "db-dev"
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_ID}
+    password: ${POSTGRES_PW}
+  sql:
+    init:
+      encoding: UTF-8
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: false
