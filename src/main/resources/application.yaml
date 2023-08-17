@@ -1,16 +1,23 @@
 server:
   port: ${PORT}
 
+logging:
+  config:
+
 spring:
   profiles:
     active: # 활성화 시킬 profile - 로 구분
       - local
     include: # application-[name] 파일 내용을 포함시키기
       - db
+      - logger
     group: # 그룹화 시켜 가져오기 위한 설정, profile 값 중 key와 일치할 경우 가져오기.
       local:
         - db-local
+        - logger-local
       dev:
         - db-dev
+        - logger-dev
       prod:
         - db-prod
+        - logger-prod

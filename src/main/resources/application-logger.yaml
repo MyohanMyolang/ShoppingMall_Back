@@ -1,0 +1,9 @@
+
+
+--- # Local
+spring:
+  config:
+    activate:
+      on-profile: "logger-local"
+logging:
+  config: classpath:loggerProps/local.yaml

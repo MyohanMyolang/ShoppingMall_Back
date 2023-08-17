@@ -7,12 +7,13 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(indexes = {
-  @Index(name = "Jwt_Index", columnList = "Jwt", unique = true)
+  @Index(name = "refreshToken_Index", columnList = "refreshToken", unique = true)
 })
 public class Member {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Getter
   private Long Id;
 
   @Column(nullable = false, unique = true)
@@ -20,7 +21,7 @@ public class Member {
   @Column(nullable = false)
   private String pw;
 
-  private String jwt;
+  private String refreshToken;
   private String nickName;
 
   @Column(nullable = false)
@@ -33,10 +34,10 @@ public class Member {
   MemberInfo info;
 
   @Builder
-  public Member(String userId, String pw, String jwt, MemberRole memberRole, String nickname) {
+  public Member(String userId, String pw, String refreshToken, MemberRole memberRole, String nickname) {
     this.userId = userId;
     this.pw = pw;
-    this.jwt = jwt;
+    this.refreshToken = refreshToken;
     this.memberRole = memberRole;
     this.nickName = nickname;
   }
@@ -56,7 +57,7 @@ public class Member {
   }
 
   public Member changeJwt(String jwt){
-    this.jwt = jwt;
+    this.refreshToken = jwt;
     return this;
   }
 }

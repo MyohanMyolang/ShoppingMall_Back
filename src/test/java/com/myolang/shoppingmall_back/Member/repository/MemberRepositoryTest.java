@@ -40,21 +40,20 @@ class MemberRepositoryTest {
     Member member = Member.builder()
       .userId("test")
       .pw("test")
-      .jwt("jwt")
+      .refreshToken("jwt")
       .memberRole(MemberRole.Admin)
       .build();
     MemberInfo info1 = MemberInfo.builder()
       .phoneNumber("010-0000-0000")
+      .name("testName1")
       .build();
     //em.persist(info1);
-    MemberAddress addr = new MemberAddress();
-    addr.setCity("city");
+    MemberAddress addr = new MemberAddress("city", "detail");
     addr.setMemberInfo(info1);
 
     member.setInfo(info1);
     info1.addAddress(addr);
-    MemberAddress addr1 = new MemberAddress();
-    addr1.setCity("city1");
+    MemberAddress addr1 = new MemberAddress("city1", "detail1");
     addr1.setMemberInfo(info1);
     info1.addAddress(addr1);
     memberRepository.save(member);
@@ -64,15 +63,17 @@ class MemberRepositoryTest {
     Member member2 = Member.builder()
       .userId("test1")
       .pw("test")
-      .jwt("jwt1")
+      .refreshToken("jwt1")
       .memberRole(MemberRole.Admin)
       .build();
     MemberInfo info2 = MemberInfo.builder()
       .phoneNumber("010-0000-0000")
+      .name("testName2")
       .build();
     //em.persist(info2);
     member2.setInfo(info2);
     memberRepository.save(member2);
+
   }
 
   @Test
@@ -97,7 +98,7 @@ class MemberRepositoryTest {
     Member member = Member.builder()
       .userId("test")
       .pw("test")
-      .jwt("jwt")
+      .refreshToken("jwt")
       .memberRole(MemberRole.Admin)
       .build();
       //when
@@ -124,7 +125,7 @@ class MemberRepositoryTest {
     result.changeJwt("jwt2");
     Member changedResult = memberRepository.findByUserId("test").get();
 
-    assertThat(changedResult.getJwt()).isEqualTo("jwt2");
+    assertThat(changedResult.getRefreshToken()).isEqualTo("jwt2");
 
     List<Member> byRole = memberRepository.findByMemberRole(MemberRole.Admin);
     assertThat(byRole.size()).isEqualTo(2);
@@ -161,4 +162,5 @@ class MemberRepositoryTest {
     assertThat(memberAddress1.getCity()).isEqualTo("city1");
     //then
   }
+
 }

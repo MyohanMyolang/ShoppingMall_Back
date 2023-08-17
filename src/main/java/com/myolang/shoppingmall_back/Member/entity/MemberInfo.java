@@ -25,6 +25,12 @@ public class MemberInfo {
   @Getter
   private String name;
 
+  @Builder
+  public MemberInfo(String phoneNumber, String name) {
+    this.phoneNumber = phoneNumber;
+    this.name = name;
+  }
+
   @Setter
   @OneToMany(mappedBy = "memberInfo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<MemberAddress> address = new ArrayList<>();
@@ -33,10 +39,6 @@ public class MemberInfo {
   @JoinColumn(name = "member", referencedColumnName = "id")
   private Member member;
 
-  @Builder
-  public MemberInfo(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
 
   public boolean addAddress(MemberAddress addr){
     try {

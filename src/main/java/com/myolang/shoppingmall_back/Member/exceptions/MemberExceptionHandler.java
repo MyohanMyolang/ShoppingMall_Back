@@ -44,4 +44,9 @@ public class MemberExceptionHandler {
 
     return ResponseEntity.badRequest().body("값이 형식에 맞게 전달되지 않았습니다.");
   }
+
+  @ExceptionHandler(DeveloperException.class)
+  ResponseEntity developerError(DeveloperException e){
+    return e.createResEntity();
+  }
 }

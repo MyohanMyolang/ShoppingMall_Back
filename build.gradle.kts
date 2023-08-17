@@ -15,6 +15,9 @@ configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
     }
+    all{
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
 }
 
 repositories {
@@ -33,6 +36,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     implementation("me.paulschwarz:spring-dotenv:4.0.0")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:3.1.2")
+    testImplementation("org.projectlombok:lombok:1.18.22")
 
 
     compileOnly("org.projectlombok:lombok")

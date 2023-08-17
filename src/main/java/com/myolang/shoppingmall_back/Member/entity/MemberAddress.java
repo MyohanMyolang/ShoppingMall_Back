@@ -22,4 +22,9 @@ public class MemberAddress {
 
   @Setter
   String detail;
+
+  public MemberAddress(String city, String detail) {
+    this.city = city;
+    this.detail = detail;
+  }
 }

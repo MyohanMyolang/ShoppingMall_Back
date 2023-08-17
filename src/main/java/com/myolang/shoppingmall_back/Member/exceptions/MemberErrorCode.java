@@ -1,20 +1,26 @@
 package com.myolang.shoppingmall_back.Member.exceptions;
 
+import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MemberErrorCode {
+public enum MemberErrorCode {
+    DEVELOPER_MISS(500, "Should Check Code", HttpStatus.INTERNAL_SERVER_ERROR);
 
-  protected enum ErrorCode {
+    @Getter
+    private final int code;
+    @Getter
+    private final String message;
+    @Getter
+    private final HttpStatus status;
 
-  }
+    MemberErrorCode(int code, String message, HttpStatus status) {
+      this.code = code;
+      this.message = message;
+      this.status = status;
+    }
 
-  private static Map<String, String> errCode;
-  static {
-    errCode = new HashMap<String,String>();
-//    errCode.put(ErrorCode.,"");
-  }
 }
