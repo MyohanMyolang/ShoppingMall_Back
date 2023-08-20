@@ -64,7 +64,7 @@ class MemberServiceLocalImplTest {
 
 
     //when
-    DeveloperException exception = assertThrows(DeveloperException.class, () -> memberService.regist((MemberDto) null));
+    DeveloperException exception = assertThrows(DeveloperException.class, () -> memberService.regist((Member) null));
 
       //then
     assertThat(exception.getMessage()).isEqualTo("Should Check Code");

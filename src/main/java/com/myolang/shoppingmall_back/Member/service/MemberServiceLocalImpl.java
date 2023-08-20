@@ -7,6 +7,7 @@ import com.myolang.shoppingmall_back.Member.repository.MemberRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -16,7 +17,7 @@ import org.springframework.util.Assert;
 @Service
 @RequiredArgsConstructor
 @Profile("local")
-@Log4j2
+@Slf4j
 public class MemberServiceLocalImpl implements MemberService {
 
   private final MemberRepository memberRepository;
@@ -25,7 +26,7 @@ public class MemberServiceLocalImpl implements MemberService {
   @Override
   public boolean regist(Member member) throws DeveloperException {
     try {
-      log.info(member);
+      log.info("test");
       memberRepository.save(member);
     }
     catch (InvalidDataAccessApiUsageException e){

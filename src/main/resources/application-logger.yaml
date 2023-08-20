@@ -7,3 +7,13 @@ spring:
       on-profile: "logger-local"
 logging:
   config: classpath:loggerProps/local.yaml
+  level:
+    root: debug
+    org:
+      springframework:
+        web: debug
+        sql: error
+        jdbc: off
+        jdbc.sqlonly: debug
+  file:
+    name: classpath:logs/log.log

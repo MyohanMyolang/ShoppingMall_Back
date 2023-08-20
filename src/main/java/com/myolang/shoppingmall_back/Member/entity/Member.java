@@ -25,7 +25,7 @@ public class Member {
   private String nickName;
 
   @Column(nullable = false)
-  @Enumerated
+  @Enumerated // Default Type이 Ordinal 이며, Ordinal의 사용 이유는 변화가 없을 것이라 판단되는 EnumType이기 때문이다.
   private MemberRole memberRole;
 
 //  @Column(nullable = false)
