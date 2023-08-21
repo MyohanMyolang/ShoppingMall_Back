@@ -1,8 +1,7 @@
-package com.myolang.shoppingmall_back.Member.repository;
+package com.myolang.shoppingmall_back.common.Member.repository;
 
-import com.myolang.shoppingmall_back.Member.entity.Member;
-import com.myolang.shoppingmall_back.Member.entity.MemberRole;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.myolang.shoppingmall_back.common.Member.entity.Member;
+import com.myolang.shoppingmall_back.common.Member.entity.MemberRole;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

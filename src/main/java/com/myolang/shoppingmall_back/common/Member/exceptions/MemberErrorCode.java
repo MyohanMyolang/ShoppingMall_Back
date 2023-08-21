@@ -1,4 +1,4 @@
-package com.myolang.shoppingmall_back.Member.exceptions;
+package com.myolang.shoppingmall_back.common.Member.exceptions;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

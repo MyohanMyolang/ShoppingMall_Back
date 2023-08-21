@@ -1,4 +1,4 @@
-package com.myolang.shoppingmall_back.Member.entity;
+package com.myolang.shoppingmall_back.common.Member.entity;
 
 import lombok.Getter;
 

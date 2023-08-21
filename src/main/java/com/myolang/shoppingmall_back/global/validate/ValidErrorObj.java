@@ -9,7 +9,9 @@ import java.util.Set;
 
 @Component
 public class ValidErrorObj {
+  @Getter
   private String message;
+  @Getter
   private boolean isShowUser;
 
   private HashMap<String, ValidErrorObj> map = new HashMap<>();
@@ -29,8 +31,4 @@ public class ValidErrorObj {
     map.put(filed, validErrorObj);
     return validErrorObj;
   }
-
-//  public String getTlqkf(){
-//    return "씨발";
-//  }
 }

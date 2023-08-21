@@ -1,8 +1,8 @@
-package com.myolang.shoppingmall_back.Member.exceptions;
+package com.myolang.shoppingmall_back.common.Member.exceptions;
 
 import com.myolang.shoppingmall_back.global.validate.ValidErrorObj;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @RestControllerAdvice(basePackages = {"com.myolang.shoppingmall_back.Member"})
 @RequiredArgsConstructor
+@Slf4j
 public class MemberExceptionHandler {
 
   private final ValidErrorObj validErrorObj;
@@ -42,36 +41,24 @@ public class MemberExceptionHandler {
    */
 
   @ExceptionHandler(DataIntegrityViolationException.class)
-  ResponseEntity test(DataIntegrityViolationException e){
+  ResponseEntity dataIntegrity(DataIntegrityViolationException e){
     // Log
+    log.error("무결성 에러");
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("버그 리포트를 남겨주시기 바랍니다.");
   }
 
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   ResponseEntity requiredRequestBodyError(HttpMessageNotReadableException e){
-
+    log.warn("형식 에러");
     return ResponseEntity.badRequest().body("값이 형식에 맞게 전달되지 않았습니다.");
   }
 
   @ExceptionHandler(DeveloperException.class)
   ResponseEntity developerError(DeveloperException e){
+    log.error(e.errorCode.getMessage());
     return e.createResEntity();
   }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  ResponseEntity<Map<String, ValidErrorObj>> validateError(MethodArgumentNotValidException e){
-    Map<String, ValidErrorObj> resultMap = new HashMap<>();
 
-    for(FieldError error : e.getBindingResult().getFieldErrors()){
-      String field = error.getField();
-      if(field.equals("role")) { // 다른 것도 처리하고 싶다면 || 을 사용하기
-        resultMap.put(field, validErrorObj.createValidError(field, error.getDefaultMessage(), false));
-        continue;
-      }
-      resultMap.put(error.getField(), validErrorObj.createValidError(field, error.getDefaultMessage(), true));
-    }
-
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resultMap);
-  }
 }

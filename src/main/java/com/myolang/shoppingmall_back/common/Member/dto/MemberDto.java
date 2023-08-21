@@ -1,9 +1,9 @@
-package com.myolang.shoppingmall_back.Member.dto;
+package com.myolang.shoppingmall_back.common.Member.dto;
 
-import com.myolang.shoppingmall_back.Member.entity.Member;
-import com.myolang.shoppingmall_back.Member.entity.MemberAddress;
-import com.myolang.shoppingmall_back.Member.entity.MemberInfo;
-import com.myolang.shoppingmall_back.Member.entity.MemberRole;
+import com.myolang.shoppingmall_back.common.Member.entity.Member;
+import com.myolang.shoppingmall_back.common.Member.entity.MemberAddress;
+import com.myolang.shoppingmall_back.common.Member.entity.MemberInfo;
+import com.myolang.shoppingmall_back.common.Member.entity.MemberRole;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class MemberDto {
@@ -33,7 +32,7 @@ public class MemberDto {
   @Pattern(regexp = "^[A-Za-z0-9ㄱ-힣]*$")
   private String nickName;
 
-  @NotNull(message = "형식에 맞지 않는 요청")
+  @NotNull(message = "Role이 등록되어 있지 않습니다. | 코드를 확인하여 주십시오.")
   @Enumerated(EnumType.STRING)
   private MemberRole role;
 
@@ -71,23 +70,21 @@ public class MemberDto {
     String name;
   }
 
-  Member toEntity(){
-    MemberInfo info = new MemberInfo(this.info.phoneNumber, this.info.name);
-    List<MemberAddress> addressList = new LinkedList<>();
-    this.addressList.forEach(addr -> {
-      MemberAddress memberAddress = new MemberAddress(addr.city, addr.detail);
-      memberAddress.setMemberInfo(info);
-      addressList.add(memberAddress);
-    });
-
-    info.setAddress(addressList);
+  public Member toEntity(){
     Member member = Member.builder()
       .userId(this.id)
       .pw(this.pw)
       .nickname(this.nickName)
       .memberRole(this.role)
       .build();
+
+    MemberInfo info = new MemberInfo(this.info.phoneNumber, this.info.name);
     member.setInfo(info);
+
+    this.addressList.forEach(addr -> {
+      MemberAddress memberAddress = new MemberAddress(addr.city, addr.detail);
+      member.addAddress(memberAddress);
+    });
     return member;
   }
 }

@@ -1,6 +1,5 @@
-package com.myolang.shoppingmall_back.Member.exceptions;
+package com.myolang.shoppingmall_back.common.Member.exceptions;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 public class DeveloperException extends Exception {

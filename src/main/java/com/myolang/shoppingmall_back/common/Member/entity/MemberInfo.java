@@ -1,10 +1,7 @@
-package com.myolang.shoppingmall_back.Member.entity;
+package com.myolang.shoppingmall_back.common.Member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,24 +28,15 @@ public class MemberInfo {
     this.name = name;
   }
 
-  @Setter
-  @OneToMany(mappedBy = "memberInfo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<MemberAddress> address = new ArrayList<>();
+
 
   @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "member", referencedColumnName = "id")
+  @JoinColumn(name = "member")
+  @Setter
   private Member member;
 
 
-  public boolean addAddress(MemberAddress addr){
-    try {
-      address.add(addr);
-      return true;
-    } catch (Exception e){
-      System.out.println(e.getMessage());
-      return false;
-    }
-  }
+
 
 
 }

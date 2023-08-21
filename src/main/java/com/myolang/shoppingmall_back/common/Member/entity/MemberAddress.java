@@ -1,4 +1,4 @@
-package com.myolang.shoppingmall_back.Member.entity;
+package com.myolang.shoppingmall_back.common.Member.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,9 +13,9 @@ public class MemberAddress {
   Long id;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_info_id")
+  @JoinColumn(name = "member", referencedColumnName = "id")
   @Setter
-  MemberInfo memberInfo;
+  Member member;
 
   @Setter
   String city;
@@ -26,5 +26,9 @@ public class MemberAddress {
   public MemberAddress(String city, String detail) {
     this.city = city;
     this.detail = detail;
+  }
+
+  public MemberAddress() {
+
   }
 }
