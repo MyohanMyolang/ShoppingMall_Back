@@ -1,5 +1,7 @@
 package com.myolang.shoppingmall_back.Auth.controller;
 
+import com.myolang.shoppingmall_back.Auth.service.AuthService;
+import com.myolang.shoppingmall_back.Auth.service.AuthServiceImpl;
 import com.myolang.shoppingmall_back.common.Member.dto.MemberDto;
 import com.myolang.shoppingmall_back.common.Member.exceptions.DeveloperException;
 import jakarta.validation.Valid;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
+  private final AuthService authService;
   @PostMapping("/regist")
-  boolean regis(@RequestBody @Valid MemberDto memberDto) throws DeveloperException {
-
-
+  boolean regist(@RequestBody @Valid MemberDto memberDto) throws DeveloperException {
+    authService.regist(memberDto);
     return false;
   }
 }

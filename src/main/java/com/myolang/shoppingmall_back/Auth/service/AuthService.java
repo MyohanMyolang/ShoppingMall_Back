@@ -7,9 +7,7 @@ import com.myolang.shoppingmall_back.common.Member.exceptions.DeveloperException
 public interface AuthService {
   
   public boolean regist(Member member) throws DeveloperException;
+  default public boolean regist(MemberDto memberDto) throws DeveloperException {return regist(memberDto.toEntity());}
 
-  default public boolean regist(MemberDto memberDto) throws DeveloperException {
 
-    return regist(memberDto.toEntity());
-  }
 }

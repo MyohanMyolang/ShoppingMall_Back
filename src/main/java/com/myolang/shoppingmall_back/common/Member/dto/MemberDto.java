@@ -6,6 +6,7 @@ import com.myolang.shoppingmall_back.common.Member.entity.MemberInfo;
 import com.myolang.shoppingmall_back.common.Member.entity.MemberRole;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -16,6 +17,7 @@ import lombok.Setter;
 
 import java.util.List;
 
+@Getter
 public class MemberDto {
 
 
@@ -37,8 +39,12 @@ public class MemberDto {
   private MemberRole role;
 
 
+  @NotNull(message = "info가 없습니다")
+  @Valid
   private InfoDto info;
 
+  @NotNull(message = "addressList가 없습니다.")
+  @Valid
   private List<AddressDto> addressList;
 
   @Builder
@@ -54,9 +60,10 @@ public class MemberDto {
   @Setter
   @Getter
   public static class AddressDto{
+    @NotBlank(message = "city를 입력하여 주십시오.")
     String city;
 
-    String detail;
+    String detail = "";
   }
   @Setter
   @Getter
