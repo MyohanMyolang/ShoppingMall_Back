@@ -27,11 +27,12 @@ public class MemberDto {
   private String id;
 
   @NotBlank(message = "PASSWORD를 입력하여 주십시오.")
-  @Pattern(regexp = "^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[#?!@$ %^&*-])$", message = "영어, 숫자, 대문자를 포함시켜 주십시오.")
+  @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).*$", message = "대문자, 숫자, 특수 문자를 포함 시켜 주십시오.")
+  @Size(min = 8, max = 16, message = "PASSWORD는 8글자 이상으로 작성되어야 합니다.")
   private String pw;
 
   @NotBlank(message = "Nickname을 입력하여 주십시오.")
-  @Pattern(regexp = "^[A-Za-z0-9ㄱ-힣]*$")
+  @Pattern(regexp = "^[A-Za-z0-9ㄱ-힣]*$", message = "닉네임 형식이 맞지 않습니다.")
   private String nickName;
 
   @NotNull(message = "Role이 등록되어 있지 않습니다. | 코드를 확인하여 주십시오.")
@@ -69,11 +70,11 @@ public class MemberDto {
   @Getter
   public static class InfoDto{
     @NotBlank(message = "휴대폰 번호를 입력하여 주십시오.")
-    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$")
+    @Pattern(regexp = "^\\d{3}-\\d{3,4}-\\d{4}$", message = "010-xxxx-xxxx의 형태로 입력하여 주십시오.")
     String phoneNumber;
 
     @NotBlank(message = "이름을 입력하여 주십시오.")
-    @Pattern(regexp = "^[가-힣]*$")
+    @Pattern(regexp = "^[가-힣]*$", message = "한글만 입력 가능 합니다.")
     String name;
   }
 

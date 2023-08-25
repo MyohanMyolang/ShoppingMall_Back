@@ -23,12 +23,12 @@ public class ValidErrorObj {
   }
 
   public ValidErrorObj createValidError(String filed, String message, boolean isShowUser){
-    ValidErrorObj obj = map.get(filed);
+    ValidErrorObj obj = map.get(filed+message);
     if(obj != null)
       return obj;
 
     ValidErrorObj validErrorObj = new ValidErrorObj(message, isShowUser);
-    map.put(filed, validErrorObj);
+    map.put(filed+message, validErrorObj);
     return validErrorObj;
   }
 }
