@@ -2,7 +2,7 @@ package com.myolang.shoppingmall_back.common.Member.exceptions;
 
 import org.springframework.http.ResponseEntity;
 
-public class DeveloperException extends Exception {
+public class DeveloperException extends RuntimeException {
 
   MemberErrorCode errorCode;
   public DeveloperException(MemberErrorCode errorCode){

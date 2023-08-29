@@ -1,14 +1,17 @@
 package com.myolang.shoppingmall_back.Auth.service;
 
-import com.myolang.shoppingmall_back.common.Member.dto.MemberDto;
+import com.myolang.shoppingmall_back.common.Member.dto.MemberResDto;
+import com.myolang.shoppingmall_back.common.Member.dto.RegistDto;
 import com.myolang.shoppingmall_back.common.Member.entity.Member;
-import com.myolang.shoppingmall_back.common.Member.exceptions.DeveloperException;
-import com.myolang.shoppingmall_back.global.exceptions.AlreadyHasDataException;
+
+import java.util.Map;
 
 public interface AuthService {
   
-  public boolean regist(Member member) throws AlreadyHasDataException;
-  default public boolean regist(MemberDto memberDto) throws AlreadyHasDataException {return regist(memberDto.toEntity());}
+  public boolean regist(Member member);
+  default public boolean regist(RegistDto registDto) {return regist(registDto.toEntity());}
 
+  public MemberResDto login(String id, String pw);
 
+  public void changeData(String nickname, Map<String, Object> data);
 }

@@ -14,30 +14,28 @@ public class MemberInfo {
 
   @Column(nullable = false)
   @Setter
-  @Getter
   private String phoneNumber;
 
   @Column(nullable = false)
   @Setter
-  @Getter
   private String name;
 
+
+  @Column(nullable = false)
+  @Setter
+  private String email;
+
   @Builder
-  public MemberInfo(String phoneNumber, String name) {
+  public MemberInfo(String phoneNumber, String name, String email) {
     this.phoneNumber = phoneNumber;
     this.name = name;
+    this.email = email;
   }
-
-
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "member")
   @Setter
   private Member member;
-
-
-
-
 
 }
 

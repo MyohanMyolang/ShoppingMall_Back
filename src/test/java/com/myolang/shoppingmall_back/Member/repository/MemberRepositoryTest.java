@@ -36,9 +36,8 @@ class MemberRepositoryTest {
       .memberRole(MemberRole.Admin)
       .nickname("test")
       .pw("pw")
-      .refreshToken("")
       .build();
-    MemberInfo info = new MemberInfo("010-0000-0000", "이름");
+    MemberInfo info = new MemberInfo("010-0000-0000", "이름", "a@b.c");
     member.setInfo(info);
 
     MemberAddress addr = new MemberAddress("test", "test");

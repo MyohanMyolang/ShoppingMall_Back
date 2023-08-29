@@ -18,7 +18,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Getter
-public class MemberDto {
+public class RegistDto {
 
 
   @NotBlank(message = "ID를 입력하여 주십시오.")
@@ -48,8 +48,11 @@ public class MemberDto {
   @Valid
   private List<AddressDto> addressList;
 
+
+
   @Builder
-  public MemberDto(String id, String pw, String nickName, MemberRole role, InfoDto info, List<AddressDto> addressList) {
+  public RegistDto(String id, String pw, String nickName,
+                   MemberRole role, InfoDto info, List<AddressDto> addressList) {
     this.id = id;
     this.pw = pw;
     this.nickName = nickName;
@@ -76,6 +79,10 @@ public class MemberDto {
     @NotBlank(message = "이름을 입력하여 주십시오.")
     @Pattern(regexp = "^[가-힣]*$", message = "한글만 입력 가능 합니다.")
     String name;
+
+    @NotBlank(message = "Email을 입력하여 주십시오.")
+    @Pattern(regexp = "^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$", message = "EMail 규칙에 맞지 않습니다.")
+    private String email;
   }
 
   public Member toEntity(){
@@ -86,7 +93,7 @@ public class MemberDto {
       .memberRole(this.role)
       .build();
 
-    MemberInfo info = new MemberInfo(this.info.phoneNumber, this.info.name);
+    MemberInfo info = new MemberInfo(this.info.phoneNumber, this.info.name, this.info.email);
     member.setInfo(info);
 
     this.addressList.forEach(addr -> {

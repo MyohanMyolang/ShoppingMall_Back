@@ -1,10 +1,6 @@
 package com.myolang.shoppingmall_back.Member.service;
 
-import com.myolang.shoppingmall_back.common.Member.repository.MemberRepository;
-import com.myolang.shoppingmall_back.common.Member.service.MemberService;
-import com.myolang.shoppingmall_back.common.Member.service.MemberServiceLocalImpl;
 import com.myolang.shoppingmall_back.global.config.P6SpyFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -16,16 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 @ActiveProfiles("local")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ImportAutoConfiguration(P6SpyFormatter.class)
-@Transactional
 class MemberServiceLocalImplTest {
 
-    MemberRepository memberRepository;
-  MemberService memberService;
-
-  @Autowired
-  MemberServiceLocalImplTest(MemberRepository memberRepository){
-    memberService = new MemberServiceLocalImpl(memberRepository);
-  }
 
 //  @Test
 //  @DisplayName("Member Null Test")
