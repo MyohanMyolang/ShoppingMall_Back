@@ -4,6 +4,7 @@ import com.myolang.shoppingmall_back.Auth.exceptions.NotFoundUser;
 import com.myolang.shoppingmall_back.Auth.repository.AuthRepository;
 import com.myolang.shoppingmall_back.common.Member.dto.MemberResDto;
 import com.myolang.shoppingmall_back.common.Member.entity.Member;
+import com.myolang.shoppingmall_back.common.Member.exceptions.DeveloperException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 @Service
 public class AuthServiceImpl implements AuthService{
@@ -20,8 +20,10 @@ public class AuthServiceImpl implements AuthService{
 
   void initConsumerMap(){
     changeMethods.put("pw", (user, pw) -> {
-
       authRepository.changePw(user, (String)pw);
+    });
+    changeMethods.put("nickname", (user, nickname) -> {
+      authRepository.changeNickname(user, (String)nickname);
     });
   }
 
@@ -55,7 +57,10 @@ public class AuthServiceImpl implements AuthService{
   public void changeData(String nickname, Map<String, Object> data){
     Member member = authRepository.getByNickname(nickname);
     data.keySet().forEach((key) -> {
-      changeMethods.get(key).accept(member, data.get(key));
+      BiConsumer<Member, Object> consumer = changeMethods.get(key);
+      if (consumer == null)
+        throw new NullPointerException("test"); // Temp
+      
     });
   }
 }
