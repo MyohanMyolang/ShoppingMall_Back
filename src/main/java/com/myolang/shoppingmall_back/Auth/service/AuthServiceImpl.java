@@ -5,6 +5,7 @@ import com.myolang.shoppingmall_back.Auth.repository.AuthRepository;
 import com.myolang.shoppingmall_back.common.Member.dto.MemberResDto;
 import com.myolang.shoppingmall_back.common.Member.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,8 @@ public class AuthServiceImpl implements AuthService{
   private final AuthRepository authRepository;
   private final Map<String, BiConsumer<Member,Object>> changeMethods;
 
+  private final PasswordEncoder passwordEncoder;
+
   void initConsumerMap(){
     changeMethods.put("pw", (user, pw) -> {
 
@@ -26,8 +29,9 @@ public class AuthServiceImpl implements AuthService{
   }
 
   @Autowired
-  AuthServiceImpl(AuthRepository authRepository){
+  AuthServiceImpl(AuthRepository authRepository, PasswordEncoder passwordEncoder){
     this.authRepository = authRepository;
+    this.passwordEncoder = passwordEncoder;
     changeMethods = new HashMap<>();
     initConsumerMap();
   }
@@ -45,7 +49,7 @@ public class AuthServiceImpl implements AuthService{
     /* NOTE:
         Repository에서 NULL을 반환 시킨 이유 - pw가 틀려도, id를 찾지 못하여도 NotFoundUser Exception을 던지고 try/catch문 없이 사용하기 위하여
     */
-    if(user == null || !user.getPw().equals(pw))
+    if(user == null || !passwordEncoder.matches(pw, user.getPw()))
       throw new NotFoundUser();
 
     return user.toMemberResDto();
@@ -55,7 +59,10 @@ public class AuthServiceImpl implements AuthService{
   public void changeData(String nickname, Map<String, Object> data){
     Member member = authRepository.getByNickname(nickname);
     data.keySet().forEach((key) -> {
-      changeMethods.get(key).accept(member, data.get(key));
+      BiConsumer<Member, Object> consumer = changeMethods.get(key);
+      if(consumer == null)
+        throw new NullPointerException();
+      consumer.accept(member, data.get(key));
     });
   }
 }

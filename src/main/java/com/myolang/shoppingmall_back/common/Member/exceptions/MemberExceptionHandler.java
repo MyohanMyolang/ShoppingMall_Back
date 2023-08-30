@@ -7,13 +7,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestControllerAdvice(basePackages = {"com.myolang.shoppingmall_back.Member"})
 @RequiredArgsConstructor
@@ -36,11 +31,6 @@ public class MemberExceptionHandler {
     return ResponseEntity.badRequest().body("값이 형식에 맞게 전달되지 않았습니다.");
   }
 
-  @ExceptionHandler(DeveloperException.class)
-  ResponseEntity developerError(DeveloperException e){
-    log.error(e.errorCode.getMessage());
-    return e.createResEntity();
-  }
 
 
 }

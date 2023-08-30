@@ -60,7 +60,7 @@ public class AuthExceptionHandler {
 
   @ExceptionHandler(AlreadyHasDataException.class)
   ResponseEntity alreadyHasData(AlreadyHasDataException e){
-    return ResponseEntity.badRequest().body(e.getMessage());
+    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
   }
 
   @ExceptionHandler(NotFoundUser.class)

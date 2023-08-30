@@ -15,8 +15,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 public class RegistDto {
 
@@ -44,21 +42,21 @@ public class RegistDto {
   @Valid
   private InfoDto info;
 
-  @NotNull(message = "addressList가 없습니다.")
+  @NotNull(message = "address가 없습니다.")
   @Valid
-  private List<AddressDto> addressList;
+  private AddressDto address;
 
 
 
   @Builder
   public RegistDto(String id, String pw, String nickName,
-                   MemberRole role, InfoDto info, List<AddressDto> addressList) {
+                   MemberRole role, InfoDto info, AddressDto address) {
     this.id = id;
     this.pw = pw;
     this.nickName = nickName;
     this.role = role;
     this.info = info;
-    this.addressList = addressList;
+    this.address = address;
   }
 
   @Setter
@@ -96,10 +94,9 @@ public class RegistDto {
     MemberInfo info = new MemberInfo(this.info.phoneNumber, this.info.name, this.info.email);
     member.setInfo(info);
 
-    this.addressList.forEach(addr -> {
-      MemberAddress memberAddress = new MemberAddress(addr.city, addr.detail);
-      member.addAddress(memberAddress);
-    });
+    MemberAddress memberAddress = new MemberAddress(address.city, address.detail);
+    member.addAddress(memberAddress);
+
     return member;
   }
 }
