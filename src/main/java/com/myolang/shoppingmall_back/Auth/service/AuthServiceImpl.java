@@ -4,6 +4,7 @@ import com.myolang.shoppingmall_back.Auth.exceptions.NotFoundUser;
 import com.myolang.shoppingmall_back.Auth.repository.AuthRepository;
 import com.myolang.shoppingmall_back.common.Member.dto.MemberResDto;
 import com.myolang.shoppingmall_back.common.Member.entity.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,33 +16,16 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService{
   private final AuthRepository authRepository;
-  private final Map<String, BiConsumer<Member,Object>> changeMethods;
 
   private final PasswordEncoder passwordEncoder;
-
-  void initConsumerMap(){
-    changeMethods.put("pw", (user, pw) -> {
-
-      authRepository.changePw(user, (String)pw);
-    });
-  }
-
-  @Autowired
-  AuthServiceImpl(AuthRepository authRepository, PasswordEncoder passwordEncoder){
-    this.authRepository = authRepository;
-    this.passwordEncoder = passwordEncoder;
-    changeMethods = new HashMap<>();
-    initConsumerMap();
-  }
-
 
   @Override
   public boolean regist(Member member){
     return authRepository.regist(member);
   }
-
 
   @Override
   public MemberResDto login(String id, String pw){
@@ -55,14 +39,5 @@ public class AuthServiceImpl implements AuthService{
     return user.toMemberResDto();
   }
 
-  @Transactional
-  public void changeData(String nickname, Map<String, Object> data){
-    Member member = authRepository.getByNickname(nickname);
-    data.keySet().forEach((key) -> {
-      BiConsumer<Member, Object> consumer = changeMethods.get(key);
-      if(consumer == null)
-        throw new NullPointerException();
-      consumer.accept(member, data.get(key));
-    });
-  }
+
 }

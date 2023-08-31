@@ -13,5 +13,4 @@ public interface AuthService {
 
   public MemberResDto login(String id, String pw);
 
-  public void changeData(String nickname, Map<String, Object> data);
 }

@@ -23,8 +23,5 @@ public class AuthController {
     return authService.login(user.getId(), user.getPw());
   }
 
-  @PatchMapping("/change")
-  void changeData(@RequestBody @Valid ChangeReqDto changeReqDto){
-    authService.changeData(changeReqDto.getNickname(), changeReqDto.getDatas());
-  }
+
 }
