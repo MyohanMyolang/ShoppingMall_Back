@@ -4,7 +4,7 @@ import com.myolang.shoppingmall_back.common.Member.entity.Member;
 import com.myolang.shoppingmall_back.common.Member.entity.MemberAddress;
 import com.myolang.shoppingmall_back.common.Member.entity.MemberInfo;
 import com.myolang.shoppingmall_back.common.Member.entity.MemberRole;
-import com.myolang.shoppingmall_back.common.Member.repository.MemberRepository;
+import com.myolang.shoppingmall_back.common.Member.repository.MemberJpaRepository;
 import com.myolang.shoppingmall_back.global.config.P6SpyFormatter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -25,9 +25,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @ActiveProfiles("local")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ImportAutoConfiguration(P6SpyFormatter.class)
-class MemberRepositoryTest {
+class MemberJpaRepositoryTest {
   @Autowired
-  MemberRepository memberRepository;
+  MemberJpaRepository memberJpaRepository;
 
   @BeforeEach
   void before(){
@@ -43,7 +43,7 @@ class MemberRepositoryTest {
     MemberAddress addr = new MemberAddress("test", "test");
     member.addAddress(addr);
     //when
-    assertDoesNotThrow(() -> memberRepository.save(member));
+    assertDoesNotThrow(() -> memberJpaRepository.save(member));
   }
 
 //  @Test
@@ -76,7 +76,7 @@ class MemberRepositoryTest {
   @DisplayName("search Test")
   void search(){
       //given
-    Optional<Member> test = memberRepository.findByUserId("test");
+    Optional<Member> test = memberJpaRepository.findByUserId("test");
     //when & then
     test.ifPresent(member -> {
       assertThat(member.getInfo().getName()).isEqualTo("이름");

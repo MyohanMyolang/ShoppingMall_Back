@@ -23,8 +23,9 @@ public class AuthController {
     return authService.login(user.getId(), user.getPw());
   }
 
-  @PatchMapping("/change")
-  void changeData(@RequestBody @Valid ChangeReqDto changeReqDto){
-    authService.changeData(changeReqDto.getNickname(), changeReqDto.getDatas());
+  @DeleteMapping("/delete/{nickname}")
+  void deleteUser(@PathVariable("nickname") String nickname){
+    authService.delete(nickname);
   }
+
 }

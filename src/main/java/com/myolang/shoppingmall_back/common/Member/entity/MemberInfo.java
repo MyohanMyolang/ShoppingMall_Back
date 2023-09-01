@@ -21,7 +21,7 @@ public class MemberInfo {
   private String name;
 
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   @Setter
   private String email;
 

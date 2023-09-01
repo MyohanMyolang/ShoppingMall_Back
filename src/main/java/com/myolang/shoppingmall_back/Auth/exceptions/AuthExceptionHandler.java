@@ -21,37 +21,6 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice(basePackages = {"com.myolang.shoppingmall_back.Auth"})
 public class AuthExceptionHandler {
 
-  private final ValidErrorObj validErrorObj;
-
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  ResponseEntity<Map<String, ValidErrorObj>> validateError(MethodArgumentNotValidException e){
-    Map<String, ValidErrorObj> resultMap = new HashMap<>();
-
-    for(FieldError error : e.getBindingResult().getFieldErrors()){
-      String field = error.getField();
-      if(validErrorObj.checkShowUser(field)) {
-        resultMap.put(field, validErrorObj.createValidError(field, error.getDefaultMessage(), false));
-        continue;
-      }
-      resultMap.put(error.getField(), validErrorObj.createValidError(field, error.getDefaultMessage(), true));
-    }
-
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resultMap);
-  }
-
-  @ExceptionHandler(ConstraintViolationException.class)
-  ResponseEntity methodValidateError(ConstraintViolationException e){
-    String errMessage = e.getConstraintViolations().stream()
-      .map(constraintViolation -> constraintViolation.getMessage())
-      .findFirst()
-      .orElse("서버 에러");
-    return ResponseEntity.badRequest().body(errMessage);
-  }
-
-  @ExceptionHandler(NoSuchElementException.class)
-  ResponseEntity noSuchElement(NoSuchElementException e){
-    return ResponseEntity.internalServerError().body("지속 된다면 고객센터에 문의 바랍니다.");
-  }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
   ResponseEntity dataIntegrity(DataIntegrityViolationException e){
@@ -60,7 +29,7 @@ public class AuthExceptionHandler {
 
   @ExceptionHandler(AlreadyHasDataException.class)
   ResponseEntity alreadyHasData(AlreadyHasDataException e){
-    return ResponseEntity.badRequest().body(e.getMessage());
+    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e.getMessage());
   }
 
   @ExceptionHandler(NotFoundUser.class)

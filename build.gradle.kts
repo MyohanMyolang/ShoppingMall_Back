@@ -54,6 +54,8 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
 
+    implementation("org.springframework.security:spring-security-crypto:6.1.3")
+
 
     runtimeOnly("org.postgresql:postgresql")
 }
