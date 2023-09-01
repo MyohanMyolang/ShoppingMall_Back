@@ -39,5 +39,9 @@ public class AuthServiceImpl implements AuthService{
     return user.toMemberResDto();
   }
 
-
+  @Override
+  public void delete(String nickname) {
+    Member user = authRepository.getByNickname(nickname);
+    authRepository.deleteUser(user);
+  }
 }

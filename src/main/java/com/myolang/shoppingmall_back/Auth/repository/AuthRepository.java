@@ -27,4 +27,7 @@ public class AuthRepository {
 
   public Member getByNickname(String nickname){ return memberJpaRepository.findByNickName(nickname).orElseThrow();}
 
+  public void deleteUser(Member user){
+    memberJpaRepository.delete(user);
+  }
 }

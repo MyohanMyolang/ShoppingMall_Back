@@ -13,4 +13,5 @@ public interface AuthService {
 
   public MemberResDto login(String id, String pw);
 
+  void delete(String nickname);
 }

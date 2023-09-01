@@ -22,30 +22,29 @@ public class RegistDto {
   @NotBlank(message = "ID를 입력하여 주십시오.")
   @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "소문자, 대문자, 숫자로만 이루어져야 합니다.")
   @Size(min = 4, max = 16, message = "ID는 4-16 글자로 작성되어야 합니다.")
-  private String id;
+  private final String id;
 
   @NotBlank(message = "PASSWORD를 입력하여 주십시오.")
   @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).*$", message = "대문자, 숫자, 특수 문자를 포함 시켜 주십시오.")
   @Size(min = 8, max = 16, message = "PASSWORD는 8글자 이상으로 작성되어야 합니다.")
-  private String pw;
+  private final String pw;
 
   @NotBlank(message = "Nickname을 입력하여 주십시오.")
   @Pattern(regexp = "^[A-Za-z0-9ㄱ-힣]*$", message = "닉네임 형식이 맞지 않습니다.")
-  private String nickName;
+  private final String nickName;
 
   @NotNull(message = "Role이 등록되어 있지 않습니다. | 코드를 확인하여 주십시오.")
   @Enumerated(EnumType.STRING)
-  private MemberRole role;
+  private final MemberRole role;
 
 
   @NotNull(message = "info가 없습니다")
   @Valid
-  private InfoDto info;
+  private final InfoDto info;
 
   @NotNull(message = "address가 없습니다.")
   @Valid
-  private AddressDto address;
-
+  private final AddressDto address;
 
 
   @Builder

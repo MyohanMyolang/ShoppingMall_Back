@@ -23,5 +23,9 @@ public class AuthController {
     return authService.login(user.getId(), user.getPw());
   }
 
+  @DeleteMapping("/delete/{nickname}")
+  void deleteUser(@PathVariable("nickname") String nickname){
+    authService.delete(nickname);
+  }
 
 }
