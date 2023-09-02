@@ -23,8 +23,6 @@
 1. Spring Boot
 
 - Spring Data JPA
-- Spring Security
-- OAuth2 client
 
 2. NextJs
 
